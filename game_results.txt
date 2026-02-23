@@ -1,1 +1,3 @@
 Player: Anerudh, Attempts: 4, Result: WIN
+Player: Anerudh, Attempts: 4, Result: WIN
+Player: Ane, Attempts: 5, Result: WIN
