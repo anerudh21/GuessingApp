@@ -1,11 +1,9 @@
-import java.util.*;
 /**
- * Use Case 2: User Guess Submission
- * This is responsible for handling user input and validating guesses against the target number.
- * It Does not handle Input or Output
+ * Use Case 3: Hint Generation
+ * Generating controlled hints based on the number of incorrect attempts made by the player.
  * 
  * @author Developer
- * @version 2.0
+ * @version 3.0
  */
 
 import java.util.Scanner;
@@ -14,6 +12,7 @@ public class GuessingApp{
     public static void main(String[] args) {
         System.out.println("Welcome to the Guessing Game!");
         GameConfig config = new GameConfig();
+        HintService hs = new HintService();
         config.showRules();
 
         Scanner sc = new Scanner(System.in);
@@ -29,6 +28,9 @@ public class GuessingApp{
 
             if("Correct!".equals(result)){
                 break;
+            }
+            if(attempts == 1 || attempts == 2){
+                System.out.println(hs.generateHint(config.getTargetNumber(), attempts));
             }
         }
     }
