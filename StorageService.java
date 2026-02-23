@@ -8,7 +8,7 @@
 Results are stored in a file so that 
 * game history is not lost after exit
 */
-
+import java.io.*;
 class StorageService {
 	/*
 	* Saves the final outcome of the game
@@ -18,7 +18,7 @@ class StorageService {
 	* - Number of attempts used
 	*- Win or loss result
 	*/
-	public static void SaveResult(String player, int attempts, boolean win){
+	public static void saveResult(String player, int attempts, boolean win){
 		/*
 		* Try-with-resources ensures that
 		* the writer is closed automatically
