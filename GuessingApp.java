@@ -1,32 +1,53 @@
 /**
- * Use Case 4: Error Handling and Validation
+ * Use Case 5: Game Result Storage
  * 
- * This class coordinated the game execution while ensuring
- * all user inputs are safely validated before processing.
+ * This class coordinates the complete game flow
+ * and persists the final result after completeion.
  * 
  * Responsibilities:
- *  - Initialize game configuration and rules.
- *  - Accept User Input
- *  - Validate the input using GuessValidator.
- *  - Handle Game flow without crashing on invalid input
+ *  - Initialize game configuration
+ *  - Accept and validate user guesses
+ *  - Generate hints when applicable
+ *  - Store game resut at the end.
  * 
  * @author Developer
- * @version 4.0
+ * @version 5.0
  */
 
 import java.util.Scanner;
 
 public class GuessingApp{
     public static void main(String[] args) throws InvalidInputException {
-        System.out.println("Welcome to the Guessing Game!");
-        GameConfig config = new GameConfig();
-        HintService hs = new HintService();
-        config.showRules();
 
         Scanner sc = new Scanner(System.in);
+
+        System.out.println("\n-------------------------------");
+        System.out.println("Welcome to the Guessing Game!");
+        System.out.println("-------------------------------\n");
+
+        /**
+         * Player name is captured once
+         * and stored along with game results.
+         */
+        System.out.println("Enter Player Name: ");
+        String player = sc.nextLine();
+
+        GameConfig config = new GameConfig();
+        config.showRules();
+
         int attempts = 0;
         int hintsUsed = 0;
 
+        /**
+         * Tracks whether the player
+         * successfully guessed the number.
+         */
+        boolean win = false;
+
+        /**
+         * Game loop runs until the player
+         * exhausts all attempts or guesses correctly.
+         */
         while(attempts < config.getMaxAttempts()) {
             System.out.print("Enter your guess: ");
 
@@ -52,8 +73,14 @@ public class GuessingApp{
              */
 
             if ("Correct!".equals(result)) {
+                win = true;
                 break;
             }
         }
+    
+        StorageService.saveResult(player, attempts, win);
+
+        sc.close();
+    
     }
 }
